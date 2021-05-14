@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "UsingWebComponent";
+}
+@*<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>*@
+
+
+<div class="wrapper row spaceBetween">
+    <div class="wrapper column">
+        <h1>MicroFrontEnd - CustomComponent</h1>
+        <formulario-entrega-custom-component [title]="title"></formulario-entrega-custom-component>
+    </div>
+    <div class="wrapper column">
+        <h1>MicroFrontEnd - ShadowComponent</h1>
+        <formulario-entrega-shadow-component></formulario-entrega-shadow-component>
+    </div>
+</div>
+
+<script>
+    setScripts("http://localhost:3000", "formulario-entrega");
+
+    function setScripts(host, name) {
+        var scriptId = `micro-frontend-script-${name}`;
+        debugger;
+        fetch(`${host}/asset-manifest.json`)
+            .then(res => res.json())
+            .then(manifest => {
+                debugger;
+
+                Object.values(manifest.entrypoints).forEach(function (item) {
+                    debugger;
+                    var script = document.createElement('script');
+                    script.id = scriptId;
+                    script.crossOrigin = '';
+                    script.src = host + "/" + item;
+                    script.onload = this.renderMicroFrontend;
+                    document.head.appendChild(script);
+                });
+            });
+    }
+
+    function renderMicroFrontend() {
+        debugger;
+        window.renderFormularioEntrega("container");
+    };
+
+
+</script>

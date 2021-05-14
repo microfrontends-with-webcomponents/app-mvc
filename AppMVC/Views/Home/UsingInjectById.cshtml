@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "UsingInjectById";
+}
+
+
+<div class="wrapper row spaceBetween">
+    <div class="wrapper column">
+        <h1>MicroFrontEnd - 1</h1>
+        <div id="root"></div>
+    </div>
+    <div class="wrapper column">
+        <h1>MicroFrontEnd - 2</h1>
+        <div id="arquivo-importacao"></div>
+    </div>
+</div>
+
+<script>
+
+    setScripts("http://localhost:3002", "formulario-entrega");
+    setScripts("http://localhost:3001", "arquivo-importacao");
+
+    function setScripts(host, name) {
+        var scriptId = `micro-frontend-script-${name}`;
+        debugger;
+
+        fetch(`${host}/asset-manifest.json`)
+            .then(res => res.json())
+            .then(manifest => {
+                debugger;
+
+                Object.values(manifest.entrypoints).forEach(function (item) {
+                debugger;
+                    var script = document.createElement('script');
+                    script.id = scriptId;
+                    script.crossOrigin = '';
+                    script.src = host + "/" + item;
+                    script.onload = this.renderMicroFrontend;
+                    document.head.appendChild(script);
+                });
+            });
+    }
+
+</script>
