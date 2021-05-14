@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AppMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ActionResult = System.Web.Mvc.ActionResult;
 using Controller = System.Web.Mvc.Controller;
 
@@ -20,6 +22,17 @@ namespace AppMVC.Controllers
             ViewBag.Message = "Your application description page.";
 
             return View();
+        }
+
+        public ActionResult RequestAlgo()
+        {
+
+            Algo algo = new Algo();
+
+            algo.AlgumaCoisa = "AlgumaCoisa";
+            algo.AlgumaOutraCoisa = "AlgumaOutraCoisa";
+
+            return Content(JsonConvert.SerializeObject(algo), "application/json");
         }
 
         public ActionResult UsingExternalApplicationRoute()
